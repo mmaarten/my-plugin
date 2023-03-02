@@ -23,6 +23,8 @@ class App
         return self::$_instance;
     }
 
+    protected $is_initialized = false;
+
     /**
      * Construct
      *
@@ -39,7 +41,13 @@ class App
      */
     public function init()
     {
+        if ($this->is_initialized) {
+            return;
+        }
+
         add_action('init', [$this, 'loadTextdomain']);
+
+        $this->is_initialized = true;
     }
 
     /**
