@@ -14,6 +14,9 @@
  * Domain Path:       /languages
  */
 
+ /**
+  * Include autoloader
+  */
 $autoloader = __DIR__ . '/vendor/autoload.php';
 if (!is_readable($autoloader)) {
     error_log(
@@ -29,6 +32,12 @@ if (!is_readable($autoloader)) {
 }
 require $autoloader;
 
+/**
+ * Define constants
+ */
 define('MY_PLUGIN_FILE', __FILE__);
 
+/**
+ * Initialize main application
+ */
 add_action('plugins_loaded', [\My\Plugin\App::getInstance(), 'init']);
