@@ -53,6 +53,7 @@ class App
             'Number',
             'Editor',
             'Select',
+            'Checkboxes',
         ];
 
         foreach ($field_types as $field_type) {
@@ -60,47 +61,8 @@ class App
             new $class();
         }
 
-        $options_page = new OptionsPage('test', 'Test');
-        $options_page->addSection('default', '', null);
+        $options_page = new AdminPages\OptionsPage();
 
-        $options_page->addField(
-            [
-                'name'  => 'textfield',
-                'title' => 'Textfield',
-                'type'  => 'text',
-            ]
-        );
-
-        $options_page->addField(
-            [
-                'name'  => 'textarea',
-                'title' => 'Textarea',
-                'type'  => 'textarea',
-                'rows'  => 8,
-            ]
-        );
-
-        $options_page->addField(
-            [
-                'name'  => 'number',
-                'title' => 'Number',
-                'type'  => 'number',
-                'description' => 'Description about this field.'
-            ]
-        );
-
-        $options_page->addField(
-            [
-                'name'  => 'select',
-                'title' => 'Select',
-                'type'  => 'select',
-                'choices' => [
-                    'option_1' => 'Option 1',
-                    'option_2' => 'Option 2',
-                    'option_3' => 'Option 3',
-                ],
-            ]
-        );
 
         $this->is_initialized = true;
     }
