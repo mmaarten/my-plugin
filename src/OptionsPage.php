@@ -89,7 +89,7 @@ class OptionsPage
      */
     public function getDefaultOptions()
     {
-        return [];
+        return wp_list_pluck($this->fields, 'default_value', 'name');
     }
 
     /**
@@ -127,9 +127,21 @@ class OptionsPage
     /**
      * Add section
      */
-    public function addField($id, $title, $callback, $section = 'default', $args = [])
+    public function addField($args)
     {
-        $this->fields[$id] = compact('id', 'title', 'callback', 'section', 'args');
+        $field = wp_parse_args(
+            $args,
+            [
+                'name'          => '',
+                'title'         => __('Untitled', 'my-plugin'),
+                'type'          => 'text',
+                'default_value' => null,
+                'section'       => 'default',
+                'description'   => '',
+            ]
+        );
+
+        $this->fields[$field['name']] = $field;
     }
 
     /**
@@ -145,8 +157,31 @@ class OptionsPage
             add_settings_section($section['id'], $section['title'], $section['callback'], $this->menu_slug, $section['args']);
         }
 
+        $o = get_option($this->option_name);
+
         foreach ($this->fields as $field) {
-            add_settings_field($field['id'], $field['title'], $field['callback'], $this->menu_slug, $field['section'], $field['args']);
+            $field['label_for'] = "{$this->menu_slug}-{$field['name']}";
+            add_settings_field($field['name'], $field['title'], [$this, 'renderField'], $this->menu_slug, $field['section'], $field);
+        }
+    }
+
+    /**
+     * Render field
+     *
+     * @param array $field
+     *
+     * @return void
+     */
+    public function renderField($field)
+    {
+        $field['value'] = $this->getOption($field['name']);
+        $field['id']    = "{$this->menu_slug}-{$field['name']}";
+        $field['name']  = "{$this->option_name}[{$field['name']}]";
+
+        do_action('my_plugin_render_field/type=' . $field['type'], $field);
+
+        if ($field['description']) {
+            printf('<p class="description">%s</p>', esc_html($field['description']));
         }
     }
 
@@ -206,6 +241,16 @@ class OptionsPage
      */
     public function sanitizeOptions($input)
     {
+        foreach ($input as $name => $value) {
+            $field = isset($this->fields[$name]) ? $this->fields[$name] : null;
+
+            if ($field) {
+                $value = apply_filters('my_plugin_sanitize_field_value/type=' . $field['type'], $value, $field);
+            }
+
+            $input[$name] = $value;
+        }
+
         return $input;
     }
 

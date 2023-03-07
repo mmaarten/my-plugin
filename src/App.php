@@ -47,6 +47,61 @@ class App
 
         add_action('init', [$this, 'loadTextdomain']);
 
+        $field_types = [
+            'Text',
+            'Textarea',
+            'Number',
+            'Editor',
+            'Select',
+        ];
+
+        foreach ($field_types as $field_type) {
+            $class = "\My\Plugin\Fields\\$field_type";
+            new $class();
+        }
+
+        $options_page = new OptionsPage('test', 'Test');
+        $options_page->addSection('default', '', null);
+
+        $options_page->addField(
+            [
+                'name'  => 'textfield',
+                'title' => 'Textfield',
+                'type'  => 'text',
+            ]
+        );
+
+        $options_page->addField(
+            [
+                'name'  => 'textarea',
+                'title' => 'Textarea',
+                'type'  => 'textarea',
+                'rows'  => 8,
+            ]
+        );
+
+        $options_page->addField(
+            [
+                'name'  => 'number',
+                'title' => 'Number',
+                'type'  => 'number',
+                'description' => 'Description about this field.'
+            ]
+        );
+
+        $options_page->addField(
+            [
+                'name'  => 'select',
+                'title' => 'Select',
+                'type'  => 'select',
+                'choices' => [
+                    'option_1' => 'Option 1',
+                    'option_2' => 'Option 2',
+                    'option_3' => 'Option 3',
+                ],
+            ]
+        );
+
         $this->is_initialized = true;
     }
 
