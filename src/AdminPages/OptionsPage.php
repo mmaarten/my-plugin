@@ -11,7 +11,8 @@ class OptionsPage extends Base
     {
         parent::__construct('test', 'Test');
 
-        $this->addSection('default', '', null);
+        $this->addSection('default', 'Section 1', null);
+        $this->addSection('section_2', 'Section 2', null);
 
         $this->addField(
             [
@@ -62,6 +63,7 @@ class OptionsPage extends Base
                     'option_2' => 'Option 2',
                     'option_3' => 'Option 3',
                 ],
+                'section' => 'section_2',
             ]
         );
     }
