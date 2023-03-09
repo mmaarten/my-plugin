@@ -93,30 +93,6 @@ class Base
     }
 
     /**
-     * Get field ID
-     *
-     * @param string $field
-     *
-     * @return string
-     */
-    public function getFieldId($field)
-    {
-        return "{$this->menu_slug}-$field";
-    }
-
-    /**
-     * Get field name
-     *
-     * @param string $field
-     *
-     * @return string
-     */
-    public function getFieldName($field)
-    {
-        return "{$this->option_name}[$field]";
-    }
-
-    /**
      * Add section
      */
     public function addSection($id, $title, $callback, $args = [])
@@ -156,8 +132,6 @@ class Base
         foreach ($this->sections as $section) {
             add_settings_section($section['id'], $section['title'], $section['callback'], $this->menu_slug, $section['args']);
         }
-
-        $o = get_option($this->option_name);
 
         foreach ($this->fields as $field) {
             $field['label_for'] = "{$this->menu_slug}-{$field['name']}";
