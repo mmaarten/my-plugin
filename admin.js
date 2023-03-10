@@ -36,6 +36,8 @@
 })(jQuery);
 /**
  * Editor field
+ *
+ * @link https://www.tiny.cloud/docs/configure/editor-appearance/
  */
 (function($){
 
@@ -45,6 +47,10 @@
     var init = {
       id: $field.attr('id'),
       selector: '#' + $field.attr('id'),
+      branding: false,
+      height: 300,
+      plugins: 'link lists',
+      // toolbar: 'undo redo | bold italic | link | numlist bullist | styleformats'
     };
 
     tinymce.init( init );
