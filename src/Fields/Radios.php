@@ -37,16 +37,4 @@ class Radios extends Base
 
         echo '</ul>';
     }
-
-    /**
-     * Sanitize field
-     *
-     * @param mixed $value
-     *
-     * @return mixed
-     */
-    public function sanitizeFieldValue($value, $field)
-    {
-        return is_array($value) ? $value : [];
-    }
 }
