@@ -54,6 +54,7 @@ class App
             'Editor',
             'Select',
             'Checkboxes',
+            'Radios',
         ];
 
         foreach ($field_types as $field_type) {
@@ -62,7 +63,6 @@ class App
         }
 
         $options_page = new AdminPages\OptionsPage();
-
 
         $this->is_initialized = true;
     }
