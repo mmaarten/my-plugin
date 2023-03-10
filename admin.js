@@ -1,3 +1,6 @@
+/**
+ * Tab navigation
+ */
 (function($){
 
   const setActiveTab = (index) => {
@@ -30,4 +33,22 @@
 
   setActiveTab(0);
 
-})(jQuery)
+})(jQuery);
+/**
+ * Editor field
+ */
+(function($){
+
+  $('.wrap .my-plugin-editor').each(function(){
+    var $field = $(this);
+
+    var init = {
+      id: $field.attr('id'),
+      selector: '#' + $field.attr('id'),
+    };
+
+    tinymce.init( init );
+
+  });
+
+})(jQuery);

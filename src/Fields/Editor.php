@@ -14,7 +14,7 @@ class Editor extends Base
         parent::__construct('editor');
     }
 
-    /**
+   /**
      * Render field
      *
      * @param array $field
@@ -23,13 +23,10 @@ class Editor extends Base
      */
     public function renderField($field)
     {
-        $atts = array_intersect_key($field, array_flip(['id', 'name', 'rows']));
-
+        $atts = array_intersect_key($field, array_flip(['id', 'name']));
         $atts['class'] = 'my-plugin-editor';
 
-        echo wp_editor($field['value'], $field['name'], ['teeny' => true]);
-
-        //echo '<textarea' . Help::escAttr($atts) . '>' . esc_textarea($field['value']) . '</textarea>';
+        echo '<textarea' . Help::escAttr($atts) . '>' . esc_textarea($field['value']) . '</textarea>';
     }
 
     /**

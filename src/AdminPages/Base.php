@@ -251,5 +251,7 @@ class Base
      */
     public function enqueueAssets()
     {
+        wp_enqueue_script('wp-tinymce');
+        wp_enqueue_script('my-plugin-admin', plugins_url('admin.js', MY_PLUGIN_FILE), ['jquery'], false, true);
     }
 }
